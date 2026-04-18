@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "1TbCLmU2nG_jTeEpMZNx_"
+uri = "file://artifacts/swiss-tax/public/hero-mountain.png"
+type = "image"
+title = "Sleek dark Swiss mountain landscape"
+
+[[generated]]
+id = "sIgRC6m-7z8S1puTDbX-o"
+uri = "file://artifacts/swiss-tax/public/abstract-finance.png"
+type = "image"
+title = "Abstract premium financial visualization"

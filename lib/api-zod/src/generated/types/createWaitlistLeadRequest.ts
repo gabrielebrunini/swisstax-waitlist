@@ -5,13 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
-
-export interface ErrorResponse {
-  error: string;
-}
 
 export interface CreateWaitlistLeadRequest {
   /** @minLength 1 */
@@ -21,13 +14,4 @@ export interface CreateWaitlistLeadRequest {
   canton: string;
   /** @minLength 1 */
   situation: string;
-}
-
-export interface WaitlistLead {
-  id: number;
-  firstName: string;
-  email: string;
-  canton: string;
-  situation: string;
-  createdAt: string;
 }

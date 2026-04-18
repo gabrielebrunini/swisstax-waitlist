@@ -14,3 +14,35 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Registers interest in the swissTax product. Returns 409 if the email is already registered.
+ * @summary Submit a waitlist lead
+ */
+
+export const SubmitWaitlistLeadBody = zod.object({
+  firstName: zod.string().min(1),
+  email: zod.string().email(),
+  canton: zod.string().min(1),
+  situation: zod.string().min(1),
+});
+
+/**
+ * Returns all registered leads. Protected by X-Admin-Secret header.
+ * @summary List all waitlist leads (admin)
+ */
+export const ListWaitlistLeadsHeader = zod.object({
+  "X-Admin-Secret": zod.string(),
+});
+
+export const ListWaitlistLeadsResponseItem = zod.object({
+  id: zod.number(),
+  firstName: zod.string(),
+  email: zod.string(),
+  canton: zod.string(),
+  situation: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const ListWaitlistLeadsResponse = zod.array(
+  ListWaitlistLeadsResponseItem,
+);

@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. A bilingual (EN/DE) Swiss tax optimizer market-test landing page called **swissTax**, with a waitlist signup form and admin dashboard, backed by Express + PostgreSQL.
 
 ## Stack
 
@@ -15,6 +15,29 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
+- **Frontend**: React + Vite + Tailwind CSS + shadcn/ui + Framer Motion
+
+## Artifacts
+
+- **`artifacts/swiss-tax`** (`@workspace/swiss-tax`) — The swissTax waitlist landing page. Bilingual EN/DE. Waitlist sign-up form (name, email, canton, situation). Admin page at `/admin`. Deployed at `/`.
+- **`artifacts/api-server`** (`@workspace/api-server`) — Express 5 API server, serves routes under `/api`.
+- **`artifacts/mockup-sandbox`** — Design mockup sandbox.
+
+## Key API Endpoints
+
+- `POST /api/waitlist` — Submit a waitlist lead (firstName, email, canton, situation). Returns 409 on duplicate email.
+- `GET /api/waitlist` — List all leads. Protected by `X-Admin-Secret` header (must match `ADMIN_SECRET` env var).
+- `GET /api/healthz` — Health check.
+
+## Database Schema
+
+- `waitlist_leads` table: id, first_name, email (unique), canton, situation, created_at.
+
+## Admin Access
+
+- Admin page: `/admin`
+- The `ADMIN_SECRET` env var (set in Replit Secrets as a shared env var) is used to protect the admin GET endpoint.
+- To view leads, go to `/admin`, enter the admin secret, and click Access.
 
 ## Key Commands
 

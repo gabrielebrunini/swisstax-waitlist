@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: waitlist
+    description: Waitlist lead operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,66 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /waitlist:
+    post:
+      operationId: submitWaitlistLead
+      tags: [waitlist]
+      summary: Submit a waitlist lead
+      description: Registers interest in the swissTax product. Returns 409 if the email is already registered.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWaitlistLeadRequest"
+      responses:
+        "201":
+          description: Lead created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WaitlistLead"
+        "409":
+          description: Email already registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    get:
+      operationId: listWaitlistLeads
+      tags: [waitlist]
+      summary: List all waitlist leads (admin)
+      description: Returns all registered leads. Protected by X-Admin-Secret header.
+      parameters:
+        - in: header
+          name: X-Admin-Secret
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of leads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WaitlistLead"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +96,55 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    CreateWaitlistLeadRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        canton:
+          type: string
+          minLength: 1
+        situation:
+          type: string
+          minLength: 1
+      required:
+        - firstName
+        - email
+        - canton
+        - situation
+
+    WaitlistLead:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        email:
+          type: string
+        canton:
+          type: string
+        situation:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - firstName
+        - email
+        - canton
+        - situation
+        - createdAt
