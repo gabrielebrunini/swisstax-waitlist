@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { customFetch } from "@workspace/api-client-react/src/custom-fetch";
-import { WaitlistLead } from "@workspace/api-client-react/src/generated/api.schemas";
+import { WaitlistLead } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

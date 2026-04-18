@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useLanguage } from "@/lib/language";
-import { useSubmitWaitlistLead } from "@workspace/api-client-react";
+import { useSubmitWaitlistLead, ApiError } from "@workspace/api-client-react";
 import {
   Form,
   FormControl,
@@ -73,7 +73,7 @@ export function WaitlistForm() {
         setSuccess(true);
       },
       onError: (error) => {
-        if ((error as any)?.status === 409) {
+        if (error instanceof ApiError && error.status === 409) {
           setConflict(true);
         }
       }

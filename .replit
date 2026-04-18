@@ -34,4 +34,3 @@ externalPort = 3000
 [userenv]
 
 [userenv.shared]
-ADMIN_SECRET = "86dd9dc7822e866cf931eb306e1ec48b5da1dabd"
