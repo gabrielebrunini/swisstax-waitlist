@@ -90,15 +90,13 @@ The API will listen on `http://localhost:3001`.
 
 ### 5. Start the web app
 
-In a second terminal:
+In a second terminal (note the `API_PORT` — it tells Vite to proxy `/api/*` to the API server):
 
 ```bash
-PORT=3000 pnpm --filter @workspace/swiss-tax run dev
+PORT=3000 BASE_PATH=/ API_PORT=3001 pnpm --filter @workspace/swiss-tax run dev
 ```
 
 Open http://localhost:3000 — you should see the landing page.
-
-> By default the web app proxies `/api/*` to the API server. If you change the API port, update the Vite proxy config in `artifacts/swiss-tax/vite.config.ts`.
 
 ### 6. View the admin page
 

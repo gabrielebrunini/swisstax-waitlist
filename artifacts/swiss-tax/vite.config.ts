@@ -66,6 +66,19 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
+    // Local dev: proxy /api/* to the API server when API_PORT is set.
+    // In Replit, requests are routed via path-based routing instead and
+    // this proxy is inactive.
+    ...(process.env.API_PORT
+      ? {
+          proxy: {
+            "/api": {
+              target: `http://localhost:${process.env.API_PORT}`,
+              changeOrigin: true,
+            },
+          },
+        }
+      : {}),
   },
   preview: {
     port,
