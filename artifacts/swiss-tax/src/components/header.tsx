@@ -1,14 +1,15 @@
 import { useLanguage } from "@/lib/language";
 import { Link } from "wouter";
+import { Logo } from "@/components/logo";
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight">swissTax</span>
+        <Link href="/" className="flex items-center">
+          <Logo size={30} />
         </Link>
         <div className="flex items-center gap-4">
           <div className="flex items-center rounded-full bg-secondary p-1">
